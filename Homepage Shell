@@ -1,0 +1,20 @@
+// src/pages/Homepage.jsx
+import React from 'react';
+import HeroSection from '../components/shared/HeroSection';
+import SectionHeading from '../components/shared/SectionHeading';
+import HoodieCard from '../components/shared/HoodieCard';
+import PatchCard from '../components/shared/PatchCard';
+import CTASection from '../components/shared/CTASection';
+import { useMockStore } from '../store/mockStore';
+
+const Homepage = () => {
+  const { hoodies, patches } = useMockStore();
+
+  // Get featured items (first 3 of each)
+  const featuredHoodies = hoodies.slice(0, 3);
+  const featuredPatches = patches.slice(0, 6);
+
+  return (
+    <div className="min-h-screen">
+      {/* Hero Section */}
+      

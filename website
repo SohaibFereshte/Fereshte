@@ -1,0 +1,58 @@
+fereshte/
+├── app/
+│   ├── layout.tsx
+│   ├── page.tsx
+│   ├── globals.css
+│   ├── builder/
+│   │   └── page.tsx
+│   ├── marketplace/
+│   │   └── page.tsx
+│   ├── about/
+│   │   └── page.tsx
+│   ├── upload/
+│   │   └── page.tsx
+│   └── api/
+│       └── vectorize/
+│           └── route.ts
+├── components/
+│   ├── ui/
+│   │   ├── Navbar.tsx
+│   │   ├── Footer.tsx
+│   │   ├── SectionHeading.tsx
+│   │   ├── CTASection.tsx
+│   │   └── HeroSection.tsx
+│   ├── hoodie/
+│   │   ├── HoodieCard.tsx
+│   │   ├── HoodieViewer.tsx
+│   │   ├── PatchZoneOverlay.tsx
+│   │   ├── PatchSelectorPanel.tsx
+│   │   └── BuilderSidebar.tsx
+│   ├── patch/
+│   │   ├── PatchCard.tsx
+│   │   └── FilterBar.tsx
+│   └── upload/
+│       ├── UploadDropzone.tsx
+│       ├── ImagePreviewCard.tsx
+│       ├── VectorPreviewCard.tsx
+│       ├── ConversionControls.tsx
+│       └── ProductionTipsPanel.tsx
+├── data/
+│   ├── hoodies.ts
+│   ├── patches.ts
+│   ├── colors.ts
+│   └── story.ts
+├── store/
+│   └── builderStore.ts
+├── types/
+│   └── index.ts
+├── lib/
+│   └── utils.ts
+├── public/
+│   └── images/
+│       ├── hoodies/
+│       ├── patches/
+│       └── brand/
+├── package.json
+├── tailwind.config.js
+├── tsconfig.json
+└── next.config.js

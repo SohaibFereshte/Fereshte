@@ -1,0 +1,104 @@
+// src/pages/PatchesPage.jsx
+import React, { useState, useMemo } from 'react';
+import SectionHeading from '../components/shared/SectionHeading';
+import PatchCard from '../components/shared/PatchCard';
+import FilterBar from '../components/shared/FilterBar';
+import { useMockStore } from '../store/mockStore';
+
+const PatchesPage = () => {
+  const { patches } = useMockStore();
+  const [selectedCategory, setSelectedCategory] = useState('All');
+  const [searchTerm, setSearchTerm] = useState('');
+  const [sortBy, setSortBy] = useState('featured');
+
+  const categories = [
+    'All',
+    'Truck Art',
+    'Urdu Typography', 
+    'Symbols',
+    'Regional Patterns',
+    'Minimal Icons'
+  ];
+
+  const sortOptions = [
+    { value: 'featured', label: 'Featured' },
+    { value: 'newest', label: 'Newest First' },
+    { value: 'price-low', label: 'Price: Low to High' },
+    { value: 'price-high', label: 'Price: High to Low' },
+    { value: 'name', label: 'Name A-Z' }
+  ];
+
+  const filteredPatches = useMemo(() => {
+    let filtered = patches;
+
+    // Filter by category
+    if (selectedCategory !== 'All') {
+      filtered = filtered.filter(patch => patch.category === selectedCategory);
+    }
+
+    // Filter by search term
+    if (searchTerm) {
+      filtered = filtered.filter(patch =>
+        patch.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
+        patch.description.toLowerCase().includes(searchTerm.toLowerCase())
+      );
+    }
+
+    // Sort patches
+    switch (sortBy) {
+      case 'newest':
+        filtered = filtered.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
+        break;
+      case 'price-low':
+        filtered = filtered.sort((a, b) => a.price - b.price);
+        break;
+      case 'price-high':
+        filtered = filtered.sort((a, b) => b.price - a.price);
+        break;
+      case 'name':
+        filtered = filtered.sort((a, b) => a.name.localeCompare(b.name));
+        break;
+      default:
+        // Featured - keep original order
+        break;
+    }
+
+    return filtered;
+  }, [patches, selectedCategory, searchTerm, sortBy]);
+
+  return (
+    <div className="min-h-screen bg-gray-50">
+      {/* Header */}
+      <div className="bg-white border-b">
+        <div className="container-custom py-8">
+          <SectionHeading 
+            title="Patch Marketplace"
+            subtitle="Discover premium patches inspired by Pakistani culture and modern design"
+          />
+        </div>
+      </div>
+
+      {/* Filters */}
+      <div className="bg-white border-b sticky top-16 z-40">
+        <div className="container-custom py-4">
+          <FilterBar
+            searchTerm={searchTerm}
+            setSearchTerm={setSearchTerm}
+            selectedCategory={selectedCategory}
+            setSelectedCategory={setSelectedCategory}
+            categories={categories}
+            sortBy={sortBy}
+            setSortBy={setSortBy}
+            sortOptions={sortOptions}
+            resultCount={filteredPatches.length}
+          />
+        </div>
+      </div>
+
+      {/* Results */}
+      <div className="container-custom py-8">
+        {filteredPatches.length === 0 ? (
+          <div className="text-center py-12">
+            <div className="w-16 h-16 mx-auto mb-4 bg-gray-200 rounded-full flex items-center justify-center">
+              <svg className="w-8 h-8 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path
